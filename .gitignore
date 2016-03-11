@@ -1,0 +1,28 @@
+﻿#ignore these files
+#缓存
+Home/Runtime
+Admin/Runtime
+Test/Runtime
+Runtime
+Cache/*.php
+#配置文件
+.idea
+.svn/*
+.buildpath
+.project
+.settings/*
+.metadata/*
+
+#except
+!.gitignore
+
+#Mac
+.DS_Store
+
+#备份文件
+
+.bak
+#sass cache
+.sass-cache
+.scss
+.idea/vcs.xml
