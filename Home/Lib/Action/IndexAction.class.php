@@ -5,12 +5,16 @@ class IndexAction extends Action {
         $this->display();
     }
     public function inte(){
-        //$data=array();
+        $da=array();
+        $da['category'] = array();
+        $da['data'] = array();
 		    $inte=M('supplier_log');
-        $data = $inte->query("SELECT SUM(sup), DATE_FORMAT(FROM_UNIXTIME( `regTime`),'%y年%m月') sdate  FROM `j_supplier_log` GROUP BY sdate");
-        for(var i = 0; i < $data.length; i++){
+        $data = $inte->query("SELECT SUM(sup) sum, DATE_FORMAT(FROM_UNIXTIME( `regTime`),'%y年%m月') sdate  FROM `j_supplier_log` GROUP BY sdate");
+        foreach($data as $key=>$va){
+          array_push($da['category'],$va[sdate]);
+          array_push($da['data'],$va[sum]);
 
         }
-				echo json_encode($data);
+				echo json_encode($da);
     }
 }

@@ -44,12 +44,12 @@
         </li>
         <li>
             <div id="pv">
-                <img src="lib/1.bmp" alt="">
+                <img src="/Home/Tpl/Index/1.bmp" alt="">
             </div>
         </li>
     </ul>
 </div>
-<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="/Home/Tpl/Index/jquery-2.0.3.min.js"></script>
 <script src="/Home/Tpl/Index/echarts.min.js"></script>
 <script src="/Home/Tpl/Index/unslider/js/unslider-min.js"></script>
 <script>
@@ -71,7 +71,10 @@
         });
         //积分导入
         var inteChart = echarts.init(document.getElementById('inte'));
-        $.get('data.json').done(function (data) {
+        $.get('/index.php/Index/inte',
+                function (data) {
+//            data = eval(data);
+                    alert(typeof (data));
             // 填入数据
             inteChart.setOption({
                 title : {
