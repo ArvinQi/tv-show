@@ -5,31 +5,39 @@
     <link rel="stylesheet" href="/Home/Tpl/Index/unslider/css/unslider.css">
     <style>
         html,
-        body{
+        body {
             width: 100%;
             height: 100%;
             background: #fff;
             overflow: hidden;
         }
-        .my-slider{
+
+        .my-slider {
             width: 100%;
             height: 100%;
             position: absolute;
         }
-        .my-slider ul{
+
+        .my-slider ul {
             width: 100%;
             height: 100%;
             position: absolute;
         }
-        .my-slider ul li{
+
+        .my-slider ul li {
             /*width: 100%;*/
             height: 100%;
             position: absolute;
         }
-        #inte{
+
+        #inte {
             width: 100%;
             height: 100%;
         }
+        #sale {
+             width: 100%;
+             height: 100%;
+         }
     </style>
 </head>
 <body>
@@ -43,9 +51,7 @@
             <div id="sale"></div>
         </li>
         <li>
-            <div id="pv">
-                <img src="/Home/Tpl/Index/1.bmp" alt="">
-            </div>
+            <img style="width: 100%;height: 100%;" src="/Home/Tpl/Index/1.bmp" alt="">
         </li>
     </ul>
 </div>
@@ -53,17 +59,17 @@
 <script src="/Home/Tpl/Index/echarts.min.js"></script>
 <script src="/Home/Tpl/Index/unslider/js/unslider-min.js"></script>
 <script>
-    if (!window.jQuery) {
-        var script = document.createElement('script');
-        script.src = "/js/jquery.min.js";
-        document.body.appendChild(script);
-    }
-    $(function(){
+    //    if (!window.jQuery) {
+    //        var script = document.createElement('script');
+    //        script.src = "/js/jquery.min.js";
+    //        document.body.appendChild(script);
+    //    }
+    $(function () {
         $('.my-slider').unslider({
             animation: 'fade',
             autoplay: true,
-            delay: 3000,
-            speed: 3000,
+            delay: 10000,
+            speed: 300,
             arrows: false,
             keys: false,
             nav: false,
@@ -71,151 +77,153 @@
         });
         //积分导入
         var inteChart = echarts.init(document.getElementById('inte'));
-        $.get('/index.php/Index/inte',
-                function (data) {
-//            data = eval(data);
-                    alert(typeof (data));
+        $.get('/index.php/Index/inte', function (data) {
+            data = eval('['+data+']');
+
             // 填入数据
             inteChart.setOption({
-                title : {
+                title: {
                     text: 'E得网积分导入',
                     subtext: '上海佳金'
                 },
-                tooltip : {
-                    show : true,
+                tooltip: {
+                    show: true,
                     alwaysShowContent: true
                 },
-                xAxis : [
+                xAxis: [
                     {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
+                        type: 'category',
+                        boundaryGap: false,
+                        data: data[0]['category']
                     }
                 ],
-                yAxis : [
+                yAxis: [
                     {
-                        type : 'value',
-                        axisLabel : {
+                        type: 'value',
+                        axisLabel: {
 //                        formatter: '{value} °C'
                         }
                     }
                 ],
-                series : [
-                {
-                    name:'最高气温',
-                    type:'line',
-                    data:data.data,
-                    markPoint : {
-                        data : [
-                            {type : 'max', name: '最大值'},
-                            {type : 'min', name: '最小值'}
-                        ]
-                    },
-                    markLine : {
-                        data : [
-                            {type : 'average', name: '平均值'}
-                        ]
-                    }
-                }
-                ]
-            });
-        });
-        //销售
-        var saleChart = echarts.init(document.getElementById('sale'));
-        $.get('data.json').done(function (data) {
-            // 填入数据
-            saleChart.setOption({
-                title : {
-                    text: 'E得网销售实时数据',
-                    subtext: '上海佳金'
-                },
-                tooltip : {
-                    show : true,
-                    alwaysShowContent: true
-                },
-                xAxis : [
+                series: [
                     {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-                        axisLabel : {
-//                        formatter: '{value} °C'
-                        }
-                    }
-                ],
-                series : [
-                    {
-                        name:'销售总积分',
-                        type:'line',
-                        data:data.data,
-                        markPoint : {
-                            data : [
-                                {type : 'max', name: '最大值'},
-                                {type : 'min', name: '最小值'}
-                            ]
-                        },
-                        markLine : {
-                            data : [
-                                {type : 'average', name: '平均值'}
-                            ]
-                        }
-                    }
-                ]
-            });
-        });
-        //pv
-//        var pvChart = echarts.init(document.getElementById('pv'));
-//        $.get('data.json').done(function (data) {
-//            // 填入数据
-//            pvChart.setOption({
-//                title : {
-//                    text: 'E得网积分导入',
-//                    subtext: '上海佳金'
-//                },
-//                tooltip : {
-//                    show : true,
-//                    alwaysShowContent: true
-//                },
-//                xAxis : [
-//                    {
-//                        type : 'category',
-//                        boundaryGap : false,
-//                        data : ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
-//                    }
-//                ],
-//                yAxis : [
-//                    {
-//                        type : 'value',
-//                        axisLabel : {
-////                        formatter: '{value} °C'
-//                        }
-//                    }
-//                ],
-//                series : [
-//                    {
-//                        name:'最高气温',
-//                        type:'line',
-//                        data:data.data,
-//                        markPoint : {
-//                            data : [
-//                                {type : 'max', name: '最大值'},
-//                                {type : 'min', name: '最小值'}
+                        name: '导入积分',
+                        type: 'line',
+                        data: data[0]['data'],
+//                        markPoint: {
+//                            data: [
+//                                {type: 'max', name: '最大值'},
+//                                {type: 'min', name: '最小值'}
 //                            ]
 //                        },
-//                        markLine : {
-//                            data : [
-//                                {type : 'average', name: '平均值'}
-//                            ]
-//                        }
-//                    }
-//                ]
-//            });
-//        });
+                        markLine: {
+                            data: [
+                                {type: 'average', name: '平均值'}
+                            ]
+                        }
+                    }
+                ]
+            });
+        });
+        var option = {
+            title: {
+                text: '实时积分消费',
+                subtext: 'E得网'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+//                data:['最新成交价', '预购队列']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            dataZoom: {
+                show: false,
+                start: 0,
+                end: 100
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: true,
+                    data: (function (){
+                        var now = new Date();
+                        var res = [];
+                        var len = 10;
+                        while (len--) {
+                            res.unshift(now.toLocaleTimeString().replace(/^\D*/,''));
+                            now = new Date(now - 2000);
+                        }
+                        return res;
+                    })()
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    scale: true,
+                    name: '积分',
+                    max: 200,
+                    min: 0,
+                    boundaryGap: [0.2, 0.2]
+                },
+                {
+                    type: 'value',
+                    scale: true,
+                    name: '积分',
+                    max: 200,
+                    min: 0,
+                    boundaryGap: [0.2, 0.2]
+                }
+            ],
+            series: [
+                {
+                    name:'消费积分',
+                    type:'bar',
+                    data:(function (){
+                        var res = [];
+                        var len = 0;
+                        while (len < 10) {
+                            res.push((Math.random()*200 + 5).toFixed(1) - 0);
+                            len++;
+                        }
+                        return res;
+                    })()
+                }
+            ]
+        };
+        var saleChart = echarts.init(document.getElementById('sale'));
+        var count = 11;
+        var time = Date.now();
+        setInterval(function (){
+            var timestamp = new Date();
+            time = (timestamp.getTime()/1000).toFixed(0);
+            $.get('/index.php/Index/inteRT', {time:time}, function(data){
+                data = eval(data);
+                var axisData = (timestamp).toLocaleTimeString().replace(/^\D*/,'');
+                var sum = parseInt(data[0]['SUM']);
+
+                var max = option.yAxis[0].max;
+                option.yAxis[0].max = max < sum?Math.ceil(sum/100)*100 : max;
+                option.yAxis[1].max = max < sum?Math.ceil(sum/100)*100 : max;
+                var data0 = option.series[0].data;
+                data0.shift();
+                data0.push(sum);
+
+                option.xAxis[0].data.shift();
+                option.xAxis[0].data.push(axisData);
+
+                saleChart.setOption(option);
+            });
+        }, 5100);
+
     });
 </script>
 </body>
